@@ -4,10 +4,10 @@ let xOffset, yOffset;
 let xOffsetStart, yOffsetStart;
 let xInc, yInc;
 let time = 0;
-let dims = [8, 8];
+let dims = [12, 12];
 let balls = [];
 let numBalls = 2500;
-let maxSpeed = 4;
+let maxSpeed = 5;
 
 let currentX, currentY;
 
@@ -26,18 +26,17 @@ function setup(){
         if(currentX == 0) currentY = (currentY+1)%height;
     }
     noiseDetail(32);
-    background(0);
 }
 
 function draw(){
+    background(0, 0, 0, 16);
     balls.forEach((ball) => {
         const noiseX = ball.pos.x/dims[0]*xInc+xOffsetStart;
         const noiseY = ball.pos.y/dims[1]*yInc+yOffsetStart;
-        const noiseNum = noise(noiseX, noiseY);
+        const noiseNum = noise(noiseX, noiseY, time);
         const noiseAngle = map(noiseNum, 0, 1, -2*PI, 2*PI);
-        const noiseVector = p5.Vector.fromAngle(noiseAngle);
-        ball.c.r = ball.c.g = ball.c.b = map(noise(noiseAngle, time), 0, 1, 0, 255);
-        ball.v = (noiseVector);
+        const noiseVector = p5.Vector.fromAngle(noiseAngle).mult(maxSpeed);
+        ball.v = noiseVector;
         if(ball.v.mag() > maxSpeed){
             ball.v = ball.v.normalize();
             ball.v = ball.v.mult(maxSpeed);
@@ -46,9 +45,9 @@ function draw(){
         ball.draw();
         if((ball.pos.x < 0 || ball.pos.x > width) || (ball.pos.y < 0 || ball.pos.y > height)){
             ball.pos = createVector(random(width), random(height));
-            ball.v = ball.v.mult(-1);
+            ball.v = ball.v.mult(0);
         }
     });
+    // time += 0.00001;
 
-    time += 0.005;
 }

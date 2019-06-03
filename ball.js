@@ -5,27 +5,31 @@ class Ball{
         this.a = createVector(0,0);
         this.v = createVector(0,0);
         this.antiBall = random(1) > 0.5;
+        if(this.antiBall){
+            this.c.g = map(this.c.r, 0, 255, 0, 128);
+            this.c.b = 0;
+        } else{
+            this.c.r = 0
+            this.c.g = map(this.c.b, 0, 255, 0, 128);
+        }
     }
 
     draw(){
-        if(this.antiBall) {
-            this.c = {r: this.c.r, g: 128*this.c.r/255, b: 0};
-        } else {
-            this.c = {r: 0, g: 128*this.c.b/255, b: this.c.b};
-        }
         fill(this.c.r, this.c.g, this.c.b);
         stroke(this.c.r, this.c.g, this.c.b);
-        strokeWeight(1);
+        strokeWeight(4);
         point(this.pos.x, this.pos.y);
+        //line(this.pos.x, this.pos.y, this.v.x+this.pos.x, this.v.y+this.pos.y);
         strokeWeight(1);
     }
 
     move(){        
-        this.v = this.v.add(this.a);
+        this.v.add(this.a);
+        this.v.add(p5.Vector.mag(this.pos.x-width/2, this.pos.y-height/2));
         if(this.antiBall){
-            this.pos = this.pos.sub(this.v);
+            this.pos.sub(this.v);
         } else{
-            this.pos = this.pos.add(this.v);
+            this.pos.add(this.v);
         }
     }
 }
