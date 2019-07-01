@@ -35,7 +35,7 @@ class Ball{
 }
 
 function randomBall(){
-    return new Ball(random(width), random(height), randomColor());
+    return new Ball(random(width), random(height),{r:255, g:255, b:255});
 }
 
 function randomColor(){
