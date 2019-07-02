@@ -34,10 +34,13 @@ class Ball{
     }
 }
 
-function randomBall(){
-    return new Ball(random(width), random(height),{r:255, g:255, b:255});
+function randomBall(n){
+    if(!n)
+        return new Ball(random(width), random(height),randomColor());
+    else
+        return new Ball(n%width, Math.floor(n/width), randomColor())
 }
 
 function randomColor(){
-    return {r:random(255), g:random(255), b:random(255)};
+    return {r:random(128, 255), g:random(128, 255), b:random(128, 255)};
 }
