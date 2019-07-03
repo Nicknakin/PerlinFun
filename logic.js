@@ -54,8 +54,8 @@ function step(){
         const noiseNum = noise(noiseX, noiseY);
         const noiseAngle = map(noiseNum, 0, 1, -PI, PI);
         const noiseVector = p5.Vector.fromAngle(noiseAngle);
-        ball.a = noiseVector.mult(0.1);
-        ball.v.limit(maxSpeed);
+        ball.v = noiseVector;
+        ball.v.mult(maxSpeed);
         ball.move();
         ball.draw();
         if((ball.pos.x < 0 || ball.pos.x > width) || (ball.pos.y < 0 || ball.pos.y > height)){
