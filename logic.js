@@ -2,10 +2,12 @@
 let time = 0;
 let dims = new Array(2).fill(0.01886);
 let balls;
-let numBalls = 1000;
-let maxSpeed = 1;
+let numBalls = 2000;
+let maxSpeed = 5;
 
 let currentX, currentY;
+
+
 
 var backgroundImage;
 
@@ -38,7 +40,7 @@ function setup(){
     }
 
     noiseDetail(2);
-    background(0);
+    background(255);
 }
 
 function draw(){
@@ -52,12 +54,13 @@ function step(){
         const noiseNum = noise(noiseX, noiseY);
         const noiseAngle = map(noiseNum, 0, 1, -PI, PI);
         const noiseVector = p5.Vector.fromAngle(noiseAngle);
-        ball.v = noiseVector.mult(maxSpeed);
+        ball.a = noiseVector;
+        ball.v.limit(maxSpeed);
         ball.move();
         ball.draw();
         if((ball.pos.x < 0 || ball.pos.x > width) || (ball.pos.y < 0 || ball.pos.y > height)){
             ball.pos = createVector(random(width), random(height));
-            ball.v = ball.v.mult(0);
+            ball.v = p5.Vector.fromAngle(random(TWO_PI)).mult(maxSpeed);
         }
     });
 }
