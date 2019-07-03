@@ -3,7 +3,7 @@ let time = 0;
 let dims = new Array(2).fill(0.01886);
 let balls;
 let numBalls = 2000;
-let maxSpeed = 5;
+let maxSpeed = 2;
 
 let currentX, currentY;
 
@@ -40,7 +40,7 @@ function setup(){
     }
 
     noiseDetail(2);
-    background(255);
+    background(0);
 }
 
 function draw(){
@@ -54,7 +54,7 @@ function step(){
         const noiseNum = noise(noiseX, noiseY);
         const noiseAngle = map(noiseNum, 0, 1, -PI, PI);
         const noiseVector = p5.Vector.fromAngle(noiseAngle);
-        ball.a = noiseVector;
+        ball.a = noiseVector.mult(0.1);
         ball.v.limit(maxSpeed);
         ball.move();
         ball.draw();

@@ -21,8 +21,8 @@ class Ball{
     }
 
     draw(){
-        fill(this.c.r*this.lifeRatio(), this.c.g*this.lifeRatio(), this.c.b*this.lifeRatio(), 4);
-        stroke(this.c.r*this.lifeRatio(), this.c.g*this.lifeRatio(), this.c.b*this.lifeRatio(), 4);
+        fill(this.c.r*this.lifeRatio(), this.c.g*this.lifeRatio(), this.c.b*this.lifeRatio(), 8);
+        stroke(this.c.r*this.lifeRatio(), this.c.g*this.lifeRatio(), this.c.b*this.lifeRatio(), 8);
         strokeWeight(1);
         point(this.pos.x, this.pos.y);
         strokeWeight(1);
